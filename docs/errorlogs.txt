@@ -1,0 +1,23 @@
+[2026-05-05 11:10:48] ERROR: npx shadcn add card input label button -y failed.
+Reason: PSSecurityException - Running scripts is disabled on this system.
+Resolution: Manually created Shadcn UI components (Card, Button, Input, Label) in src/components/ui/ using Tailwind and Radix primitives.
+
+[2026-05-05 11:10:53] ERROR: view_file failed for src/lib/utils.ts.
+Reason: File does not exist.
+Resolution: Created src/lib/utils.ts with cn() utility.
+
+[2026-05-05 11:16:30] ERROR: Export createMiddlewareClient doesn't exist in target module.
+Reason: The version of @supabase/auth-helpers-nextjs in use exports createServerClient and createBrowserClient (SSR pattern) instead of the legacy createMiddlewareClient.
+Resolution: Refactored middleware.ts to use createServerClient and src/infrastructure/auth.ts to use createBrowserClient.
+
+[2026-05-05 11:21:00] ERROR: 404 Page Not Found on /login.
+Reason: The login page was incorrectly placed in src/application/login/page.tsx instead of the active root app/ directory.
+Resolution: Moved login page to app/login/page.tsx.
+
+[2026-05-05 11:22:30] ERROR: Module not found: Can't resolve '@/infrastructure/auth'.
+Reason: The tsconfig.json alias @/* points to ./* (root), but the infrastructure/ and components/ folders are located inside src/.
+Resolution: Updated all aliased imports in app/login/page.tsx and src/components/ui/ to include the src/ prefix (e.g., '@/src/infrastructure/auth').
+
+[2026-05-05 11:32:00] ERROR: new row violates row-level security policy for table "organizations".
+Reason: RLS was enabled on the database but no policies existed to allow newly registered users to insert their organization and profile data.
+Resolution: Added RLS policies to scripts/schema.sql that permit authenticated users to insert organizations and manage their own profiles.
