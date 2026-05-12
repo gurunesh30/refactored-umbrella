@@ -1,32 +1,39 @@
-# Prompt: Refactored Auth & Middleware Implementation
+# Prompt: Dashboard Design & Information Architecture
 
 ## Context
-We are building **refactored-umbrella**, a Micro-SaaS boilerplate using Next.js 14+ (App Router), Tailwind CSS, Shadcn UI, and Supabase. We have already initialized the project and configured the Supabase keys in `.env.local`.
+We are designing the core user experience for **refactored-umbrella**, a Micro-SaaS boilerplate. The goal is a "Broke-Ass Professional" aesthetic: high-end, clean, and data-dense, using the **Shadcn Nova** theme.
 
-## Goal
-Implement a professional authentication flow including a Login Page and an Edge Middleware for protected routes.
+## Task 1: Dashboard Layout Structure (`layout.tsx`)
+Describe the "Shell" of the application. It should include:
+1. **Vertical Sidebar (Desktop):** - A fixed left-hand navigation bar.
+    - Top section: Project Branding (Logo + Name).
+    - Middle section: Primary navigation links (Dashboard, Team, Settings, Billing).
+    - Bottom section: User Profile switcher/mini-profile.
+2. **Horizontal Header (Mobile & Desktop):**
+    - Mobile: Hamburger menu for sidebar access.
+    - Desktop: Contextual breadcrumbs (e.g., Home > Dashboard).
+    - Search bar or "Global Action" button (e.g., "New Project").
+    - Dark/Light mode toggle.
+3. **Main Content Area:** - A scrollable container with consistent padding and a subtle background tint (e.g., `slate-50` in light mode).
 
-## Task 1: The Middleware (`/middleware.ts`)
-Edit the file `middleware.ts` file in the root directory that:
-1.  Uses `createMiddlewareClient` from `@supabase/auth-helpers-nextjs` (or the latest `@supabase/ssr` package).
-2.  Refreshes the user's session on every request.
-3.  **Protection Logic:** Redirects unauthenticated users to `/login` if they try to access any route starting with `/dashboard`.
-4.  Redirects authenticated users to `/dashboard` if they try to access `/login`.
+## Task 2: Dashboard Content Architecture (`page.tsx`)
+Describe the "Overview" screen. It should contain:
+1. **Header Section:** - A large H1 title ("Overview" or "Welcome back, {User}").
+    - A date range picker or a "Refresh Data" button.
+2. **The "Big Numbers" Row (KPIs):**
+    - Four `Card` components showing key metrics:
+        - **Total Users/Customers:** With a percentage trend indicator.
+        - **Monthly Recurring Revenue (MRR):** With a subtle badge.
+        - **Active Sessions:** Visualized with a small sparkline or simple text.
+        - **System Status:** A "Healthy" indicator.
+3. **Primary Data Visualization:**
+    - A large central card for an "Activity" or "Revenue over time" chart (placeholder using SVG or skeleton).
+4. **Secondary Information Grid:**
+    - **Recent Transactions/Activity Table:** A list of the last 5 events in the system.
+    - **Quick Actions Card:** Shortcuts to "Invite Member" or "Update Plan".
 
-## Task 2: The Login Page (`/src/app/login/page.tsx`)
-Create a clean, centered login page using Shadcn UI components:
-1.  **Layout:** Use a `Card` component to house the form.
-2.  **Fields:** Include an Email `Input` and a Password `Input` with proper `Label` components.
-3.  **Functionality:**
-    *   Use a React `useState` to handle loading states.
-    *   Implement a `handleLogin` function using `supabase.auth.signInWithPassword`.
-    *   On success, redirect the user to `/dashboard` using `next/navigation`.
-4.  **Styling:** Ensure it matches the "Nova" theme (Slate/Zinc colors) and supports Dark Mode.
-
-## Task 3: The Profile Hook (Optional but Recommended)
-Ensure the login process respects our "Refactored" architecture by keeping the Supabase client logic isolated in the infrastructure layer.
-
-## Constraints
-- Use TypeScript for all files.
-- Ensure the code stays within the Vercel Free Tier limits (keep dependencies light).
-- Do not use external CSS; use Tailwind utility classes only.
+## Design Principles
+- **Minimalist Palette:** Use the Slate/Gray tones selected during the Shadcn init.
+- **Empty States:** Every component should have a "No data yet" state that looks intentional, not broken.
+- **Responsive Design:** Describe how the 4-column KPI row stacks on mobile.
+- **Accessibility:** Ensure all navigation elements have high contrast and clear focus states.
