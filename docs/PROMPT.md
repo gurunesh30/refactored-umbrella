@@ -1,39 +1,37 @@
-# Prompt: Dashboard Design & Information Architecture
+# Prompt: Team Management & Organization Infrastructure
 
 ## Context
-We are designing the core user experience for **refactored-umbrella**, a Micro-SaaS boilerplate. The goal is a "Broke-Ass Professional" aesthetic: high-end, clean, and data-dense, using the **Shadcn Nova** theme.
+We are implementing the "Multi-tenant" core of **refactored-umbrella**. Every user must belong to an **Organization** (the "Umbrella"). We are using Next.js 14 Server Actions, Shadcn UI, and Supabase RLS.
 
-## Task 1: Dashboard Layout Structure (`layout.tsx`)
-Describe the "Shell" of the application. It should include:
-1. **Vertical Sidebar (Desktop):** - A fixed left-hand navigation bar.
-    - Top section: Project Branding (Logo + Name).
-    - Middle section: Primary navigation links (Dashboard, Team, Settings, Billing).
-    - Bottom section: User Profile switcher/mini-profile.
-2. **Horizontal Header (Mobile & Desktop):**
-    - Mobile: Hamburger menu for sidebar access.
-    - Desktop: Contextual breadcrumbs (e.g., Home > Dashboard).
-    - Search bar or "Global Action" button (e.g., "New Project").
-    - Dark/Light mode toggle.
-3. **Main Content Area:** - A scrollable container with consistent padding and a subtle background tint (e.g., `slate-50` in light mode).
+## Task 1: The "Create Organization" Onboarding UI
+Create a dedicated onboarding page at `/onboarding` for new users:
+1. **Goal:** Force users who don't have an `organization_id` to create one before accessing the dashboard.
+2. **UI:** A centered Shadcn `Card` with:
+    - An input for `Organization Name`.
+    - An input for `Organization Slug` (auto-generated from the name).
+3. **Logic:** A Server Action that:
+    - Inserts a new row into `organizations`.
+    - Updates the current user's `profile` row with the new `organization_id` and sets their role to 'owner'.
+    - Redirects to `/dashboard`.
 
-## Task 2: Dashboard Content Architecture (`page.tsx`)
-Describe the "Overview" screen. It should contain:
-1. **Header Section:** - A large H1 title ("Overview" or "Welcome back, {User}").
-    - A date range picker or a "Refresh Data" button.
-2. **The "Big Numbers" Row (KPIs):**
-    - Four `Card` components showing key metrics:
-        - **Total Users/Customers:** With a percentage trend indicator.
-        - **Monthly Recurring Revenue (MRR):** With a subtle badge.
-        - **Active Sessions:** Visualized with a small sparkline or simple text.
-        - **System Status:** A "Healthy" indicator.
-3. **Primary Data Visualization:**
-    - A large central card for an "Activity" or "Revenue over time" chart (placeholder using SVG or skeleton).
-4. **Secondary Information Grid:**
-    - **Recent Transactions/Activity Table:** A list of the last 5 events in the system.
-    - **Quick Actions Card:** Shortcuts to "Invite Member" or "Update Plan".
+## Task 2: Enhanced Sidebar & Organization Switcher
+Update the existing Sidebar component to include:
+1. **Organization Switcher:** A Shadcn `Popover` or `Select` at the top of the sidebar.
+    - Displays the current Organization Name and Logo (placeholder).
+    - Lists other organizations the user belongs to.
+    - Includes a "Create New Team" button at the bottom of the list.
+2. **Dynamic Links:** Navigation links that include the organization slug (e.g., `/org/[slug]/settings`).
 
-## Design Principles
-- **Minimalist Palette:** Use the Slate/Gray tones selected during the Shadcn init.
-- **Empty States:** Every component should have a "No data yet" state that looks intentional, not broken.
-- **Responsive Design:** Describe how the 4-column KPI row stacks on mobile.
-- **Accessibility:** Ensure all navigation elements have high contrast and clear focus states.
+## Task 3: The Invitation System UI (`/settings/team`)
+Build a team management view:
+1. **Invite Modal:** A Shadcn `Dialog` triggered by an "Invite Member" button.
+    - Input for `Email Address`.
+    - Select for `Role` (Admin, Member).
+2. **Pending Invites Table:** A `Table` component showing active invitations from the `invitations` table.
+    - Columns: Email, Role, Status (Pending), and an "uninvite" (Delete) button.
+3. **Team Members List:** A list showing existing members of the current organization fetched from the `profiles` table.
+
+## Implementation Details
+- **Architecture:** Keep logic in `application/services` and UI in `components`.
+- **Security:** Ensure all data fetching is wrapped in Supabase RLS checks.
+- **UX:** Use `sonner` or Shadcn `use-toast` to provide feedback for successful invites or organization creation.

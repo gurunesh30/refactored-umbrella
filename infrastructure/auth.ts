@@ -13,7 +13,7 @@ export const useAuth = () => {
     })
   }
 
-  const signUp = async (email: string, password: string, fullName: string, orgName: string) => {
+  const signUp = async (email: string, password: string, fullName: string) => {
     // 1. Sign up the user in Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
@@ -29,31 +29,20 @@ export const useAuth = () => {
     if (!authData.user) return { data: authData, error: new Error("User creation failed") }
 
     try {
-      // 2. Create the Organization
-      const { data: orgData, error: orgError } = await supabase
-        .from('organizations')
-        .insert({ name: orgName })
-        .select()
-        .single()
-
-      if (orgError) throw orgError
-
-      // 3. Create the Profile associated with the User and Organization
+      // 2. Create the Profile only (No Org yet)
       const { error: profileError } = await supabase
         .from('profiles')
         .insert({
           id: authData.user.id,
           full_name: fullName,
-          organization_id: orgData.id,
-          role: 'owner',
+          role: 'member', // Default role until they create/join an org
         })
 
       if (profileError) throw profileError
 
       return { data: authData, error: null }
-    } catch (err: any) {
-      // Note: In a real app, you might want to handle rollback or cleanup here
-      return { data: authData, error: err }
+    } catch (err) {
+      return { data: authData, error: err instanceof Error ? err : new Error(String(err)) }
     }
   }
 

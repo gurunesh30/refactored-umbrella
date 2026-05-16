@@ -8,9 +8,11 @@
 - [x] Implemented Dashboard Layout (`/dashboard`) with Sidebar and Header
 - [x] Implemented Dashboard Overview (`/dashboard/page.tsx`) with KPI cards and Activity charts
 - [x] Updated Documentation (`SKILLS.md`, `AGENTS.md`)
+- [x] Implemented Organization Onboarding (`/onboarding`) with auto-slug generation
+- [x] Implemented Organization Switcher in sidebar
+- [x] Implemented Team Management and Invitation system (`/dashboard/team`)
 
 ## Next Steps
-- [ ] Implement Team Management page
 - [ ] Implement Billing/Subscription management
 - [ ] Add real-time data fetching for dashboard KPIs
 - [ ] Finalize Dark/Light mode toggle persistence
@@ -20,3 +22,4 @@
 - UI follows "Broke-Ass Professional" aesthetic with Shadcn Nova theme.
 - Middleware handles redirects between `/login` and `/dashboard`.
 - Components are manually added due to environment restrictions.
+- **Fixed**: Next.js 16 async `cookies()` API — all server-side Supabase clients now `await cookies()` before use.

@@ -55,27 +55,46 @@ export async function middleware(request: NextRequest) {
   )
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession()
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  // Protect /dashboard
-  if (request.nextUrl.pathname.startsWith('/dashboard')) {
-    if (!session) {
+  const url = request.nextUrl.clone()
+  const path = url.pathname
+
+  // 1. Handle Unauthenticated Users
+  if (!user) {
+    if (path.startsWith('/dashboard') || path.startsWith('/onboarding')) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
-  }
-
-  // Redirect root / to /login (or dashboard if logged in)
-  if (request.nextUrl.pathname === '/') {
-    if (session) {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
+    if (path === '/') {
+      return NextResponse.redirect(new URL('/login', request.url))
     }
-    return NextResponse.redirect(new URL('/login', request.url))
+    return response
   }
 
-  // Redirect authenticated users away from /login
-  if (request.nextUrl.pathname.startsWith('/login')) {
-    if (session) {
+  // 2. Handle Authenticated Users - Check for Organization
+  // We only do this for app routes to save DB calls on static assets
+  if (path.startsWith('/dashboard') || path.startsWith('/onboarding') || path === '/' || path === '/login') {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('organization_id')
+      .eq('id', user.id)
+      .single()
+
+    const hasOrg = !!profile?.organization_id
+
+    // Redirect away from login/root to the appropriate place
+    if (path === '/login' || path === '/') {
+      return NextResponse.redirect(new URL(hasOrg ? '/dashboard' : '/onboarding', request.url))
+    }
+
+    // Protect Dashboard - redirect to onboarding if no org
+    if (path.startsWith('/dashboard') && !hasOrg) {
+      return NextResponse.redirect(new URL('/onboarding', request.url))
+    }
+
+    // Protect Onboarding - redirect to dashboard if already has org
+    if (path.startsWith('/onboarding') && hasOrg) {
       return NextResponse.redirect(new URL('/dashboard', request.url))
     }
   }

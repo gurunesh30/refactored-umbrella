@@ -20,7 +20,6 @@ export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [fullName, setFullName] = useState("")
-  const [orgName, setOrgName] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
@@ -44,7 +43,7 @@ export default function LoginPage() {
         router.push("/dashboard")
         router.refresh()
       } else {
-        const { data, error: signUpError } = await signUp(email, password, fullName, orgName)
+        const { data, error: signUpError } = await signUp(email, password, fullName)
         
         if (signUpError) {
           // If the error is about existing user but we successfully created org/profile in a retry, 
@@ -65,7 +64,6 @@ export default function LoginPage() {
           setIsLogin(true)
           // Reset fields
           setFullName("")
-          setOrgName("")
         }
       }
     } catch (err: any) {
@@ -101,19 +99,6 @@ export default function LoginPage() {
                     placeholder="John Doe"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    required
-                    disabled={isLoading}
-                    className="bg-zinc-50 dark:bg-zinc-900"
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="orgName">Organization Name</Label>
-                  <Input
-                    id="orgName"
-                    type="text"
-                    placeholder="Acme Inc."
-                    value={orgName}
-                    onChange={(e) => setOrgName(e.target.value)}
                     required
                     disabled={isLoading}
                     className="bg-zinc-50 dark:bg-zinc-900"
