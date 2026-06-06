@@ -20,9 +20,3 @@
 - Unauthenticated users redirected from `/dashboard` to `/login`.
 - Authenticated users redirected from `/login` to `/dashboard`.
 - Logout functionality integrated into the dashboard sidebar.
-
-## Organization & Team Management
-- **Onboarding**: Users without an organization are forced into a `/onboarding` flow to create their first "Umbrella".
-- **Switcher**: Custom `OrganizationSwitcher` implemented in the sidebar for multi-tenant navigation (supports switching and creation).
-- **Invitations**: Complete invitation lifecycle implemented with pending states, role assignment, and revocation capabilities.
-- **Services**: Logic centralized in `application/services/organization-service.ts` using Server Actions.

@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
 
   // 1. Handle Unauthenticated Users
   if (!user) {
-    if (path.startsWith('/dashboard') || path.startsWith('/onboarding')) {
+    if (path.startsWith('/dashboard')) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
     if (path === '/') {
@@ -72,31 +72,9 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  // 2. Handle Authenticated Users - Check for Organization
-  // We only do this for app routes to save DB calls on static assets
-  if (path.startsWith('/dashboard') || path.startsWith('/onboarding') || path === '/' || path === '/login') {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('organization_id')
-      .eq('id', user.id)
-      .single()
-
-    const hasOrg = !!profile?.organization_id
-
-    // Redirect away from login/root to the appropriate place
-    if (path === '/login' || path === '/') {
-      return NextResponse.redirect(new URL(hasOrg ? '/dashboard' : '/onboarding', request.url))
-    }
-
-    // Protect Dashboard - redirect to onboarding if no org
-    if (path.startsWith('/dashboard') && !hasOrg) {
-      return NextResponse.redirect(new URL('/onboarding', request.url))
-    }
-
-    // Protect Onboarding - redirect to dashboard if already has org
-    if (path.startsWith('/onboarding') && hasOrg) {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
-    }
+  // 2. Handle Authenticated Users
+  if (path === '/login' || path === '/') {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
   return response

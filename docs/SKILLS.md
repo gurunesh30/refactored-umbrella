@@ -11,7 +11,6 @@
 - **Supabase Integration**: Edge-compatible auth, session management, and database schema integration.
 - **Middleware**: Implementation of robust route protection and auth state synchronization.
 - **Architecture**: Domain-driven directory structure (`infrastructure/`, `application/`, etc.) for scalability.
-- **Multi-tenant Core**: Implementing organization-based isolation, onboarding flows, and team management infrastructure.
 - **Server Actions**: Leveraging Next.js Server Actions for secure, type-safe data mutations and database interactions.
 
 ## Documentation & Planning

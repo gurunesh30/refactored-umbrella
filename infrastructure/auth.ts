@@ -29,13 +29,12 @@ export const useAuth = () => {
     if (!authData.user) return { data: authData, error: new Error("User creation failed") }
 
     try {
-      // 2. Create the Profile only (No Org yet)
+      // 2. Create the Profile
       const { error: profileError } = await supabase
         .from('profiles')
         .insert({
           id: authData.user.id,
           full_name: fullName,
-          role: 'member', // Default role until they create/join an org
         })
 
       if (profileError) throw profileError

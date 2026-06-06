@@ -1,37 +1,32 @@
-# Prompt: Team Management & Organization Infrastructure
+# Prompt: Single-User Billing & Settings Infrastructure
 
-## Context
-We are implementing the "Multi-tenant" core of **refactored-umbrella**. Every user must belong to an **Organization** (the "Umbrella"). We are using Next.js 14 Server Actions, Shadcn UI, and Supabase RLS.
+## Context & Constraints
+We are building the individual-focused Billing and Settings sub-systems for a single-user Next.js 14+ SaaS application utilizing Supabase and Stripe. 
+- **NO multi-tenancy or organizations:** Everything maps directly to the individual user profile (`auth.uid()`).
+- **Architecture:** Use Next.js Server Components for data fetching, Server Actions for mutations, and a standalone API Route for Stripe Webhooks.
+- **UI System:** Implement clean components utilizing Shadcn UI structure tokens (Card, Progress, Button, Input, Tabs).
 
-## Task 1: The "Create Organization" Onboarding UI
-Create a dedicated onboarding page at `/onboarding` for new users:
-1. **Goal:** Force users who don't have an `organization_id` to create one before accessing the dashboard.
-2. **UI:** A centered Shadcn `Card` with:
-    - An input for `Organization Name`.
-    - An input for `Organization Slug` (auto-generated from the name).
-3. **Logic:** A Server Action that:
-    - Inserts a new row into `organizations`.
-    - Updates the current user's `profile` row with the new `organization_id` and sets their role to 'owner'.
-    - Redirects to `/dashboard`.
+---
 
-## Task 2: Enhanced Sidebar & Organization Switcher
-Update the existing Sidebar component to include:
-1. **Organization Switcher:** A Shadcn `Popover` or `Select` at the top of the sidebar.
-    - Displays the current Organization Name and Logo (placeholder).
-    - Lists other organizations the user belongs to.
-    - Includes a "Create New Team" button at the bottom of the list.
-2. **Dynamic Links:** Navigation links that include the organization slug (e.g., `/org/[slug]/settings`).
+## Task 1: Database Setup & Stripe Webhook Integration
+1. **Schema Migration:** Create a prompt script to alter the `public.profiles` table adding: `stripe_customer_id` (text, unique), `plan_type` (text, default 'free'), `subscription_status` (text, default 'active'), and `usage_count` (integer, default 0).
+2. **Inbound API Webhook (`/api/webhooks/stripe`):** Build a Next.js Route Handler using `stripe.webhooks.constructEvent`. It must use the Supabase Service Role client to safely bypass standard RLS constraints and modify user metadata cache based on real-time execution events:
+   - `checkout.session.completed`: Pull `userId` from the checkout metadata parameters, saving the verified `customer` ID, and updating `plan_type` to `'pro'`.
+   - `customer.subscription.deleted`: Revert `plan_type` back to `'free'` when identified via the Stripe customer token.
 
-## Task 3: The Invitation System UI (`/settings/team`)
-Build a team management view:
-1. **Invite Modal:** A Shadcn `Dialog` triggered by an "Invite Member" button.
-    - Input for `Email Address`.
-    - Select for `Role` (Admin, Member).
-2. **Pending Invites Table:** A `Table` component showing active invitations from the `invitations` table.
-    - Columns: Email, Role, Status (Pending), and an "uninvite" (Delete) button.
-3. **Team Members List:** A list showing existing members of the current organization fetched from the `profiles` table.
+---
 
-## Implementation Details
-- **Architecture:** Keep logic in `application/services` and UI in `components`.
-- **Security:** Ensure all data fetching is wrapped in Supabase RLS checks.
-- **UX:** Use `sonner` or Shadcn `use-toast` to provide feedback for successful invites or organization creation.
+## Task 2: Server-Side Billing Architecture (`/dashboard/billing`)
+Create a Next.js Server Component page that queries the authenticated user session from Supabase on the server.
+1. **Usage Calculations:** Compute dynamic progress metrics based on the user's tier. If `plan_type === 'pro'`, resource limit constraints scale to `100`, otherwise freeze boundaries at a `5` count capacity baseline.
+2. **Interface Cards:** Render an analytical dashboard panel displaying current plan name tags, capitalization statuses, and resource consumption horizontal bar meters.
+3. **Stripe Action Router:** Embed a single form operation utilizing a clean Next.js Server Action:
+   - **Scenario A (Free Tier):** Generate an authorized `stripe.checkout.sessions.create` runtime pushing them to a secure checkout terminal. Pass `user.id` into the session metadata.
+   - **Scenario B (Pro Tier):** Instantiate a self-service configuration payload using `stripe.billingPortal.sessions.create` pointing back to your `/dashboard/billing` origin link. Redirect the client context seamlessly.
+
+---
+
+## Task 3: Tabbed Account Configurations (`/dashboard/settings`)
+Build a unified settings screen split logically via a Shadcn `Tabs` arrangement.
+1. **Tab 1 (Identity Profile Details):** Provide input properties binding name data fields to user record updates. Keep email addresses displayed inside standard `disabled` read-only inputs for identity protection.
+2. **Tab 2 (Developer Integrations & Security):** Include secure input fields structured to process custom third-party key integrations. Note explicitly within instructions that those objects must undergo symmetric cryptography processing routines prior to database state submission.

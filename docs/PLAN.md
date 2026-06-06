@@ -2,15 +2,12 @@
 
 ## Completed Tasks
 - [x] Initialized UI components (Button, Card, Input, Label, Badge, Avatar, utils)
-- [x] Created `src/infrastructure/auth.ts` to isolate Supabase client logic
+- [x] Created `infrastructure/auth.ts` to isolate Supabase client logic
 - [x] Implemented `middleware.ts` for route protection and session refreshing
-- [x] Implemented `src/application/login/page.tsx` with Nova theme styling
+- [x] Implemented `app/login/page.tsx` with Nova theme styling
 - [x] Implemented Dashboard Layout (`/dashboard`) with Sidebar and Header
 - [x] Implemented Dashboard Overview (`/dashboard/page.tsx`) with KPI cards and Activity charts
 - [x] Updated Documentation (`SKILLS.md`, `AGENTS.md`)
-- [x] Implemented Organization Onboarding (`/onboarding`) with auto-slug generation
-- [x] Implemented Organization Switcher in sidebar
-- [x] Implemented Team Management and Invitation system (`/dashboard/team`)
 
 ## Next Steps
 - [ ] Implement Billing/Subscription management
