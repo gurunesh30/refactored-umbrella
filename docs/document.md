@@ -1,0 +1,3 @@
+Dashboard : 
+the user can see the plan they have for the softwares like supabase, stripe and such others. 
+we should track the usage of the free tier or else in which plan they have subscribed which will be obtained through the stripe id in the database. so that the user can know about their usage of limits and others. keep it as simple as that no need for the charts and graphs just the text based data should be enough for now.transactions, system logs,billing and plans. in the settings page, implement some basic features such as editing username, email,phone and password. 

@@ -1,0 +1,13 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/health-check/route": "/api/health-check",
+  "/api/webhooks/stripe/route": "/api/webhooks/stripe",
+  "/auth/signout/route": "/auth/signout",
+  "/dashboard/billing/page": "/dashboard/billing",
+  "/dashboard/page": "/dashboard",
+  "/dashboard/settings/page": "/dashboard/settings",
+  "/favicon.ico/route": "/favicon.ico",
+  "/login/page": "/login",
+  "/page": "/"
+}

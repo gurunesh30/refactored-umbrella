@@ -1,0 +1,41 @@
+{
+  "node": {
+    "00178da1ab02ad89b02052c03ac30aad238684edeb": {
+      "workers": {
+        "app/dashboard/settings/page": {
+          "moduleId": 22700,
+          "async": false,
+          "exportedName": "createNewProject",
+          "filename": "apps/web/app/dashboard/actions.ts"
+        }
+      },
+      "exportedName": "createNewProject",
+      "filename": "apps/web/app/dashboard/actions.ts"
+    },
+    "009c95373f7ab789d799da14119502fc09d23ea197": {
+      "workers": {
+        "app/dashboard/settings/page": {
+          "moduleId": 22700,
+          "async": false,
+          "exportedName": "createStripeSession",
+          "filename": "apps/web/app/dashboard/billing/actions.ts"
+        }
+      },
+      "exportedName": "createStripeSession",
+      "filename": "apps/web/app/dashboard/billing/actions.ts"
+    },
+    "00e8ebe831fa9eb26124ce84997427b48be1ade441": {
+      "workers": {
+        "app/dashboard/settings/page": {
+          "moduleId": 22700,
+          "async": false,
+          "exportedName": "linkStripeId",
+          "filename": "apps/web/app/dashboard/settings/actions.ts"
+        }
+      },
+      "exportedName": "linkStripeId",
+      "filename": "apps/web/app/dashboard/settings/actions.ts"
+    }
+  },
+  "edge": {}
+}

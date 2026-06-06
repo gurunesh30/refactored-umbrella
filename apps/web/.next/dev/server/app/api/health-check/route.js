@@ -1,0 +1,12 @@
+var R=require("../../../chunks/[turbopack]_runtime.js")("server/app/api/health-check/route.js")
+R.c("server/chunks/apps_web_app_api_health-check_route_ts_0qny3wz._.js")
+R.c("server/chunks/node_modules_next_0yq0nhr._.js")
+R.c("server/chunks/node_modules_@supabase_postgrest-js_dist_index_mjs_0uel2xe._.js")
+R.c("server/chunks/node_modules_@supabase_auth-js_dist_module_00jw3pg._.js")
+R.c("server/chunks/node_modules_stripe_esm_resources_0drcfb1._.js")
+R.c("server/chunks/node_modules_stripe_esm_07j57tr._.js")
+R.c("server/chunks/node_modules_0_hdopb._.js")
+R.c("server/chunks/[root-of-the-server]__04u7z_y._.js")
+R.c("server/chunks/apps_web__next-internal_server_app_api_health-check_route_actions_08v0w72.js")
+R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/apps/web/app/api/health-check/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)")
+module.exports=R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/apps/web/app/api/health-check/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)").exports

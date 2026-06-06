@@ -1,0 +1,104 @@
+[
+  {
+    "route": "/dashboard/settings",
+    "firstLoadUncompressedJsBytes": 802306,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\01xlw8hd842-c.js",
+      ".next\\static\\chunks\\0d3shmwh5_nmn.js",
+      ".next\\static\\chunks\\0815vdxvh2vjx.js",
+      ".next\\static\\chunks\\0ayybutrc_91_.js",
+      ".next\\static\\chunks\\0_ihdi_7v6ox6.js",
+      ".next\\static\\chunks\\017p14g_lsy_k.js",
+      ".next\\static\\chunks\\0yb2wil16uz6h.js",
+      ".next\\static\\chunks\\10qd__0r7a~.l.js",
+      ".next\\static\\chunks\\0di3a~kv44yrv.js",
+      ".next\\static\\chunks\\10~x95jhs6ns3.js",
+      ".next\\static\\chunks\\0.wiw-_135pal.js",
+      ".next\\static\\chunks\\0pqt~8bl3ukh4.js",
+      ".next\\static\\chunks\\turbopack-01z_x2~-hozi3.js"
+    ]
+  },
+  {
+    "route": "/login",
+    "firstLoadUncompressedJsBytes": 791930,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\01xlw8hd842-c.js",
+      ".next\\static\\chunks\\0d3shmwh5_nmn.js",
+      ".next\\static\\chunks\\0sp71~8u43y9s.js",
+      ".next\\static\\chunks\\017p14g_lsy_k.js",
+      ".next\\static\\chunks\\0ayybutrc_91_.js",
+      ".next\\static\\chunks\\0yb2wil16uz6h.js",
+      ".next\\static\\chunks\\10qd__0r7a~.l.js",
+      ".next\\static\\chunks\\0di3a~kv44yrv.js",
+      ".next\\static\\chunks\\10~x95jhs6ns3.js",
+      ".next\\static\\chunks\\0.wiw-_135pal.js",
+      ".next\\static\\chunks\\0pqt~8bl3ukh4.js",
+      ".next\\static\\chunks\\turbopack-01z_x2~-hozi3.js"
+    ]
+  },
+  {
+    "route": "/dashboard",
+    "firstLoadUncompressedJsBytes": 556103,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\01xlw8hd842-c.js",
+      ".next\\static\\chunks\\0d3shmwh5_nmn.js",
+      ".next\\static\\chunks\\0815vdxvh2vjx.js",
+      ".next\\static\\chunks\\0ayybutrc_91_.js",
+      ".next\\static\\chunks\\0yb2wil16uz6h.js",
+      ".next\\static\\chunks\\10qd__0r7a~.l.js",
+      ".next\\static\\chunks\\0di3a~kv44yrv.js",
+      ".next\\static\\chunks\\10~x95jhs6ns3.js",
+      ".next\\static\\chunks\\0.wiw-_135pal.js",
+      ".next\\static\\chunks\\0pqt~8bl3ukh4.js",
+      ".next\\static\\chunks\\turbopack-01z_x2~-hozi3.js"
+    ]
+  },
+  {
+    "route": "/dashboard/billing",
+    "firstLoadUncompressedJsBytes": 556103,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\01xlw8hd842-c.js",
+      ".next\\static\\chunks\\0d3shmwh5_nmn.js",
+      ".next\\static\\chunks\\0815vdxvh2vjx.js",
+      ".next\\static\\chunks\\0ayybutrc_91_.js",
+      ".next\\static\\chunks\\0yb2wil16uz6h.js",
+      ".next\\static\\chunks\\10qd__0r7a~.l.js",
+      ".next\\static\\chunks\\0di3a~kv44yrv.js",
+      ".next\\static\\chunks\\10~x95jhs6ns3.js",
+      ".next\\static\\chunks\\0.wiw-_135pal.js",
+      ".next\\static\\chunks\\0pqt~8bl3ukh4.js",
+      ".next\\static\\chunks\\turbopack-01z_x2~-hozi3.js"
+    ]
+  },
+  {
+    "route": "/",
+    "firstLoadUncompressedJsBytes": 529381,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\01xlw8hd842-c.js",
+      ".next\\static\\chunks\\0d3shmwh5_nmn.js",
+      ".next\\static\\chunks\\0d0te_909jutv.js",
+      ".next\\static\\chunks\\0yb2wil16uz6h.js",
+      ".next\\static\\chunks\\10qd__0r7a~.l.js",
+      ".next\\static\\chunks\\0di3a~kv44yrv.js",
+      ".next\\static\\chunks\\10~x95jhs6ns3.js",
+      ".next\\static\\chunks\\0.wiw-_135pal.js",
+      ".next\\static\\chunks\\0pqt~8bl3ukh4.js",
+      ".next\\static\\chunks\\turbopack-01z_x2~-hozi3.js"
+    ]
+  },
+  {
+    "route": "/_not-found",
+    "firstLoadUncompressedJsBytes": 514141,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\01xlw8hd842-c.js",
+      ".next\\static\\chunks\\0d3shmwh5_nmn.js",
+      ".next\\static\\chunks\\0yb2wil16uz6h.js",
+      ".next\\static\\chunks\\10qd__0r7a~.l.js",
+      ".next\\static\\chunks\\0di3a~kv44yrv.js",
+      ".next\\static\\chunks\\10~x95jhs6ns3.js",
+      ".next\\static\\chunks\\0.wiw-_135pal.js",
+      ".next\\static\\chunks\\0pqt~8bl3ukh4.js",
+      ".next\\static\\chunks\\turbopack-01z_x2~-hozi3.js"
+    ]
+  }
+]

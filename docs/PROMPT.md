@@ -1,32 +1,55 @@
-# Prompt: Single-User Billing & Settings Infrastructure
-
-## Context & Constraints
-We are building the individual-focused Billing and Settings sub-systems for a single-user Next.js 14+ SaaS application utilizing Supabase and Stripe. 
-- **NO multi-tenancy or organizations:** Everything maps directly to the individual user profile (`auth.uid()`).
-- **Architecture:** Use Next.js Server Components for data fetching, Server Actions for mutations, and a standalone API Route for Stripe Webhooks.
-- **UI System:** Implement clean components utilizing Shadcn UI structure tokens (Card, Progress, Button, Input, Tabs).
+Here is the formal, technical description prompt you can paste directly into your AI agent or code editor. It instructs the agent to implement the advanced CLI scaffolding tool, the automatic `.env` generator, the diagnostic health-check router, and the concurrent dual-port server environment exactly as you specified.
 
 ---
 
-## Task 1: Database Setup & Stripe Webhook Integration
-1. **Schema Migration:** Create a prompt script to alter the `public.profiles` table adding: `stripe_customer_id` (text, unique), `plan_type` (text, default 'free'), `subscription_status` (text, default 'active'), and `usage_count` (integer, default 0).
-2. **Inbound API Webhook (`/api/webhooks/stripe`):** Build a Next.js Route Handler using `stripe.webhooks.constructEvent`. It must use the Supabase Service Role client to safely bypass standard RLS constraints and modify user metadata cache based on real-time execution events:
-   - `checkout.session.completed`: Pull `userId` from the checkout metadata parameters, saving the verified `customer` ID, and updating `plan_type` to `'pro'`.
-   - `customer.subscription.deleted`: Revert `plan_type` back to `'free'` when identified via the Stripe customer token.
+```markdown
+# Specification Prompt: Multi-Feature CLI Scaffolder & Dual-Port Admin Environment
+
+## 🎯 Goal
+Implement an interactive CLI installer tool named `create-saas` (invoked via `npm create saas --template refactored-umbrella`) that allows developers to checkbox-select their preferred technical integrations, programmatically generates matching `.env.local` templates, embeds structural API connectivity test scripts, and orchestrates a split-process concurrent runtime environment.
 
 ---
 
-## Task 2: Server-Side Billing Architecture (`/dashboard/billing`)
-Create a Next.js Server Component page that queries the authenticated user session from Supabase on the server.
-1. **Usage Calculations:** Compute dynamic progress metrics based on the user's tier. If `plan_type === 'pro'`, resource limit constraints scale to `100`, otherwise freeze boundaries at a `5` count capacity baseline.
-2. **Interface Cards:** Render an analytical dashboard panel displaying current plan name tags, capitalization statuses, and resource consumption horizontal bar meters.
-3. **Stripe Action Router:** Embed a single form operation utilizing a clean Next.js Server Action:
-   - **Scenario A (Free Tier):** Generate an authorized `stripe.checkout.sessions.create` runtime pushing them to a secure checkout terminal. Pass `user.id` into the session metadata.
-   - **Scenario B (Pro Tier):** Instantiate a self-service configuration payload using `stripe.billingPortal.sessions.create` pointing back to your `/dashboard/billing` origin link. Redirect the client context seamlessly.
+## 🏗️ Requirements & Feature Breakdown
 
----
+### 1. Command Execution & Interactive Wizard Layer
+- The CLI script entry point must initialize with a Node shebang (`#!/usr/bin/env node`) and parse terminal path arguments using `commander`.
+- Use an interactive prompt layout (e.g., `@inquirer/prompts` or `clack`) to stop execution and prompt the user with a multi-select checkbox survey:
+  * Select integrations: `[ ] Supabase` | `[ ] Stripe` | `[ ] Vercel`
+- Store chosen dependencies as internal conditional boolean configuration flags.
 
-## Task 3: Tabbed Account Configurations (`/dashboard/settings`)
-Build a unified settings screen split logically via a Shadcn `Tabs` arrangement.
-1. **Tab 1 (Identity Profile Details):** Provide input properties binding name data fields to user record updates. Keep email addresses displayed inside standard `disabled` read-only inputs for identity protection.
-2. **Tab 2 (Developer Integrations & Security):** Include secure input fields structured to process custom third-party key integrations. Note explicitly within instructions that those objects must undergo symmetric cryptography processing routines prior to database state submission.
+### 2. Scaffold Extraction & On-the-Fly Configuration
+- Utilize a repository extractor (like `degit`) to safely clone the base template archive into the targeted workspace directory without pulling historic Git logs.
+- Programmatically compile and output an `.env.local` configuration manifest file. Dynamically populate empty text key structures *only* for the specific cloud platforms selected by the developer during the wizard phase.
+- Locate the cloned template's `package.json`, read its existing parameters, and dynamically replace its root name property with the exact target directory folder name provided by the user.
+
+### 3. Integration Health Check Engine
+- Implement a discrete API verification route (`/apps/web/src/app/api/health-check/route.ts`) inside the template stack.
+- This route handler must contain structural diagnostic checks linked to environment presence validations:
+  * **If Supabase Flag Active:** Try to issue a lightweight validation query to confirm endpoint accessibility.
+  * **If Stripe Flag Active:** Attempt to instantiate the Stripe Client SDK with the local token variable and fetch a single metadata object to confirm key authorization status.
+- Return a structured JSON response displaying specific verification pass/fail success logs for each selected dependency.
+
+### 4. Dual-Port Concurrent Monorepo Architecture
+- The layout structure must isolate the user's workspace into a twin-package Monorepo architecture using native `npm workspaces` or a root project orchestration runner:
+  * `/apps/web` (The main Next.js developer application running on `http://localhost:3000`)
+  * `/apps/admin-diagnostic` (The diagnostic dashboard GUI panel running on `http://localhost:4000`)
+- Configure a unified root script inside the top-level `package.json`:
+  ```json
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=apps/web\" \"npm run dev --workspace=apps/admin-diagnostic\""
+  }
+
+```
+
+* When a user initiates `npm run dev`, both servers must run concurrently across their respective isolated network ports.
+* The admin dashboard application at `localhost:4000` must fetch and visualize data from the web app's `localhost:3000/api/health-check` endpoint, displaying a clear, styled status UI with clipboard copy actions, connection state badges, and diagnostic setup assistance.
+
+```
+***
+
+### 💡 Agent Execution Tips:
+* Feed this exact markdown file to an AI agent inside a brand-new directory named `create-saas`. 
+* Ensure the agent installs the key baseline scripting packages (`commander`, `degit`, `@inquirer/prompts`, and `concurrently`) to execute the orchestration files smoothly.
+
+```

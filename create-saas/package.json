@@ -1,0 +1,14 @@
+{
+  "name": "create-saas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "create-saas": "./bin/index.js"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.1.0",
+    "commander": "^12.1.0",
+    "degit": "^2.8.4"
+  }
+}
